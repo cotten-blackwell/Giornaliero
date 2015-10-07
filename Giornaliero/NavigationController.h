@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  NavigationController.h
 //  Giornaliero
 //
 //  Created by Cotten Blackwell on 10/6/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface NavigationController : UINavigationController
 
 @end
-
