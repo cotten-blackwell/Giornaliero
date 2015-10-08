@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     //TODO -- fix runtime Bugs caused by "hanging" IBOutlets or IBActions from copied storyboard xml...
     //TODO -- why isn't keyboard showing up as part of self.textView.inputAccessoryView in this app (and also FWI?)??...
-    //TODO -- why isn't location saving / displaying?
+    //TODO -- why isn't location (and mood -- other fields too?)  saving / displaying?
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -128,6 +128,12 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = 1000;
+//    [self.locationManager requestAlwaysAuthorization];
+//    [self.locationManager requestWhenInUseAuthorization];
+    
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
     
     [self.locationManager startUpdatingLocation];
 }
@@ -140,6 +146,7 @@
     [geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         CLPlacemark *placemark = [placemarks firstObject];
         self.location = placemark.name;
+        NSLog(@"Location = %@", self.location);
     }];
 }
 
@@ -149,7 +156,8 @@
     entry.body = self.textView.text;
     entry.date = [[NSDate date] timeIntervalSince1970];
     entry.imageData = UIImageJPEGRepresentation(self.pickedImage, 0.75);
-    self.entry.mood = self.pickedMood;
+    entry.mood = self.pickedMood;
+    //self.entry.mood = self.pickedMood;
     entry.location = self.location;
     [coreDataStack saveContext];
 }

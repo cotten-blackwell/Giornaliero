@@ -34,5 +34,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>General (city-level) location is needed to tag your diary entries in the app, please.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>General (city-level) location is needed to tag your diary entries in the app, please.</string>
 </dict>
 </plist>
