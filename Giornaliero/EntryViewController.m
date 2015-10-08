@@ -34,9 +34,7 @@
 @implementation EntryViewController
 
 - (void)viewDidLoad {
-    //TODO -- fix runtime Bugs caused by "hanging" IBOutlets or IBActions from copied storyboard xml...
     //TODO -- why isn't keyboard showing up as part of self.textView.inputAccessoryView in this app (and also FWI?)??...
-    //TODO -- why isn't location (and mood -- other fields too?)  saving / displaying?
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
