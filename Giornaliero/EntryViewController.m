@@ -51,6 +51,7 @@
     else {
         self.pickedMood = DiaryEntryMoodGood;
         date = [NSDate date];
+        [self setDefaultLocation];
         [self loadLocation];
     }
     
@@ -145,7 +146,11 @@
     CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
     [geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         CLPlacemark *placemark = [placemarks firstObject];
-        self.location = placemark.name;
+        if (placemark != nil) {
+            if (placemark.name.length > 0) {
+                self.location = placemark.name;
+            }
+        }
         NSLog(@"Location = %@", self.location);
     }];
 }
@@ -235,7 +240,20 @@
     [self presentViewController:controller animated:YES completion:nil];
 }
 
+-(void)setDefaultLocation {
+    CLLocation *location =  [[CLLocation alloc] initWithLatitude:0.0f longitude:0.0f];
+    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        CLPlacemark *placemark = [placemarks firstObject];
+        if (placemark != nil) {
+            if (placemark.name.length > 0) {
+                self.location = placemark.name;
+            }
+        }
+        NSLog(@"Location = %@", self.location);
+    }];
 
+}
 
 
 
