@@ -208,21 +208,42 @@
 }
 
 -(void)promptForSource {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Image Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Photo Roll", nil];
+    //TODO -- test these on Runcible!
+//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Image Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Photo Roll", nil];
+//    [actionSheet showInView:self.view];
+//
+//    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Image Source" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+    }];
+    [alert addAction:cancelAction];
     
-    [actionSheet showInView:self.view];
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self promptForCamera];
+    }];
+    [alert addAction:cameraAction];
+    
+    UIAlertAction *photoRollAction = [UIAlertAction actionWithTitle:@"Photo Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self promptForPhotoRoll];
+    }];
+    [alert addAction:photoRollAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != actionSheet.cancelButtonIndex) {
-        if (buttonIndex != actionSheet.firstOtherButtonIndex) {
-            [self promptForCamera];
-        }
-        else {
-            [self promptForPhotoRoll];
-        }
-    }
-}
+//-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    if (buttonIndex != actionSheet.cancelButtonIndex) {
+//        if (buttonIndex != actionSheet.firstOtherButtonIndex) {
+//            [self promptForCamera];
+//        }
+//        else {
+//            [self promptForPhotoRoll];
+//        }
+//    }
+//}
 
 -(void)promptForCamera {
     UIImagePickerController *controller = [[UIImagePickerController alloc] init];
